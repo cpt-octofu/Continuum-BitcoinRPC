@@ -6,7 +6,7 @@ Continuum::BitcoinRPC - Asynchronous BitcoinRPC client
 
 Continuum::BitcoinRPC is a client that interfaces the RPC commands of
 the Satoshi bitcoin implementation ([Satoshi Node](http://github.com/bitcoin/bitcoin)). It is built on top of the
-[Continuum](http://github.com/ciphermonk/Continuum) framework to
+[Continuum](http://github.com/cpt-octofu/Continuum) framework to
 provide a powerful asynchronous API. Continuum::BitcoinRPC is meant to
 run within an event loop environment such as [Mojolicious](http://search.cpan.org/perldoc?Mojolicious) or
 [AnyEvent](http://search.cpan.org/perldoc?AnyEvent).
@@ -19,20 +19,20 @@ Usage is quite simple:
     # Set your RPC username/password in ~/.bitcoin/bitcoin.conf
     my $client = Continuum::BitcoinRPC->new(
         url => 'http://127.0.0.1:18332',
-        username => 'rpc_username',
-        password => 'rpc_password',
+        username => 'rpc\_username',
+        password => 'rpc\_password',
     );
 
     # Blocking call
-    my $balance = $client->get_balance->recv;
+    my $balance = $client->get\_balance->recv;
 
     # Non-blocking call
-    $client->get_balance->then( sub {
+    $client->get\_balance->then( sub {
         my $balance = shift;
     });
 
     # Underscores and case are ignored. These are equivalent:
-    $client->get_balance;
+    $client->get\_balance;
     $client->getbalance;
     $client->getBalance;
     $client->GetBalance;
@@ -60,7 +60,7 @@ call to Continuum::BitcoinRPC returns a Portal, so you can write this:
     $client->GetBalance( 'fred' )
         ->merge( $client->GetAccountAddress( 'fred' ) )
         ->then( sub {
-            my ( $balance, $account ) = @_;
+            my ( $balance, $account ) = @\_;
             ...
         });
 ```
@@ -69,14 +69,14 @@ GetBalance and GetAccountAddress are computed in parallel. Once both
 of them are completed, the callback in `then` is called with the
 values. 
 
-Please head to the [Continuum](http://github.com/ciphermonk/Continuum)
+Please head to the [Continuum](http://github.com/cpt-octofu/Continuum)
 project page for more details.
 
 ## Bugs
 
 Please report any bugs in the projects bug tracker:
 
-[http://github.com/ciphermonk/Continuum-BitcoinRPC/issues](http://github.com/ciphermonk/Continuum-BitcoinRPC/issues)
+[http://github.com/cpt-octofu/Continuum-BitcoinRPC/issues](http://github.com/cpt-octofu/Continuum-BitcoinRPC/issues)
 
 You can also submit a patch.
 
@@ -85,17 +85,17 @@ You can also submit a patch.
 We're glad you want to contribute! It's simple:
 
 - Fork Continuum::BitcoinRPC
-- Create a branch `git checkout -b my_branch`
+- Create a branch `git checkout -b my\_branch`
 - Commit your changes `git commit -am 'comments'`
-- Push the branch `git push origin my_branch`
+- Push the branch `git push origin my\_branch`
 - Open a pull request
 
 ## Installing
 
 These are the modules on which this one depends:
 
-- [My fork of AnyEvent::JSONRPC](https://github.com/ciphermonk/anyevent-jsonrpc-perl)
-- [Continuum](https://github.com/ciphermonk/Continuum)
+- [My fork of AnyEvent::JSONRPC](https://github.com/cpt-octofu/anyevent-jsonrpc-perl)
+- [Continuum](https://github.com/cpt-octofu/Continuum)
 - [Moose](https://metacpan.org/module/Moose)
 - [namespace::autoclean](https://metacpan.org/module/namespace::autoclean)
 - [EV](https://metacpan.org/module/EV) (for testing)
